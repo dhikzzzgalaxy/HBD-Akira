@@ -222,10 +222,78 @@
   @media (min-width: 768px) { .letter-card p { font-size: 1.125rem; } }
   .cursor-gold { display: inline-block; height: 1.1em; width: 2px; transform: translateY(2px); margin-left: 2px; background: var(--gold); vertical-align: middle; }
 
+  /* ---------- Celebrate date ---------- */
+  .celebrate-date {
+    display: flex; align-items: center; justify-content: center; gap: .45rem;
+    margin-top: .9rem; color: var(--gold); font: 500 1.15rem var(--font-script);
+    letter-spacing: .03em;
+  }
+  .celebrate-date .love-mark {
+    width: 1.05rem; height: 1.05rem; color: var(--rose);
+    filter: drop-shadow(0 2px 6px rgba(242,160,175,.5));
+    animation: bd-heartbeat 1.8s ease-in-out infinite;
+  }
+
+  /* ---------- Birthday calendar ---------- */
+  .birthday-calendar-wrap { position: relative; width: min(100%, 22rem); margin: 1.8rem auto 0; }
+  .birthday-calendar-wrap::before, .birthday-calendar-wrap::after { content: "✦"; position: absolute; z-index: 0; color: var(--gold-soft); font-size: 1rem; animation: bd-twinkle 2.4s ease-in-out infinite; }
+  .birthday-calendar-wrap::before { left: -1rem; top: 1.7rem; }
+  .birthday-calendar-wrap::after { right: -.8rem; bottom: 1.4rem; animation-delay: .9s; }
+  .calendar-bokeh { position: absolute; z-index: 0; width: .65rem; height: .65rem; border-radius: 50%; background: var(--blush); box-shadow: 0 0 12px rgba(242,160,175,.8); opacity: .7; animation: bd-drift 8s ease-in-out infinite; }
+  .calendar-bokeh.one { top: -.35rem; right: 2.5rem; }
+  .calendar-bokeh.two { bottom: .4rem; left: -.6rem; width: .45rem; height: .45rem; animation-delay: 1.3s; }
+  .birthday-calendar { position: relative; z-index: 1; text-align: center; padding: 1.2rem 1.1rem 1.25rem; border: 1px solid rgba(255,255,255,.72); border-radius: 1.35rem; background: linear-gradient(145deg, rgba(255,255,255,.76), rgba(255,232,239,.65)); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); box-shadow: 0 18px 45px rgba(177,112,133,.18), 0 0 28px rgba(242,160,175,.18); }
+  .calendar-kicker { color: var(--rose); font: 600 1.12rem var(--font-script); }
+  .calendar-month { margin-top: .1rem; color: var(--foreground); font: 600 clamp(1.65rem, 6vw, 2rem)/1.1 var(--font-display); }
+  .calendar-year { margin-top: .1rem; color: var(--gold); font-size: .75rem; letter-spacing: .18em; }
+  .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: .28rem; margin-top: 1rem; }
+  .calendar-weekday { padding-bottom: .3rem; color: var(--muted-foreground); font-size: .62rem; font-weight: 600; letter-spacing: .04em; }
+  .calendar-day { display: grid; place-items: center; aspect-ratio: 1; min-width: 0; color: rgba(74,53,57,.82); font-size: .78rem; border-radius: 50%; }
+  .calendar-day.muted { color: rgba(138,107,114,.32); }
+  .calendar-day.special { position: relative; color: #fff; font-weight: 700; border-radius: 0; background: linear-gradient(145deg, var(--rose), #e88da1); clip-path: polygon(50% 90%, 12% 52%, 7% 35%, 10% 20%, 22% 11%, 36% 12%, 50% 27%, 64% 12%, 78% 11%, 90% 20%, 93% 35%, 88% 52%); filter: drop-shadow(0 0 8px rgba(242,160,175,.75)) drop-shadow(0 0 2px rgba(255,255,255,.9)); }
+  @media (max-width: 380px) { .birthday-calendar { padding-left: .75rem; padding-right: .75rem; } .calendar-grid { gap: .2rem; } .calendar-day { font-size: .72rem; } }
+
   /* ---------- Surprise ---------- */
   #surprise { text-align: center; }
   .gift-art { height: 11rem; width: 11rem; margin: 0 auto; object-fit: contain; filter: drop-shadow(0 12px 24px rgba(160, 110, 100, 0.25)); }
   @media (min-width: 768px) { .gift-art { height: 14rem; width: 14rem; } }
+
+  /* ---------- PIN modal ---------- */
+  #pin-modal {
+    position: fixed; inset: 0; z-index: 80; display: none; align-items: center; justify-content: center;
+    padding: 1rem; background: rgba(74, 53, 57, 0.28); backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px);
+  }
+  #pin-modal.open { display: flex; animation: pin-fade-in 0.35s ease both; }
+  #pin-modal .pin-card {
+    width: min(100%, 23rem); position: relative; overflow: hidden; text-align: center;
+    padding: 2rem 1.25rem 1.5rem; border-radius: 1.75rem;
+    background: linear-gradient(145deg, rgba(255,255,255,.82), rgba(255,239,244,.68));
+    border: 1px solid rgba(255,255,255,.78); backdrop-filter: blur(20px) saturate(1.35);
+    -webkit-backdrop-filter: blur(20px) saturate(1.35);
+    box-shadow: 0 24px 80px rgba(177, 112, 133, .25), 0 0 45px rgba(220,192,138,.25);
+    animation: pin-scale-in .55s var(--ease-out) both;
+  }
+  #pin-modal .pin-card::before { content: ""; position: absolute; inset: -30% 20% auto; height: 9rem; background: rgba(255,255,255,.55); filter: blur(35px); pointer-events: none; }
+  .pin-card .pin-heart { position: relative; font-size: 2rem; filter: drop-shadow(0 5px 12px rgba(201,164,92,.35)); }
+  .pin-card .pin-title { position: relative; margin-top: .35rem; font: 600 clamp(1.8rem, 7vw, 2.35rem)/1.05 var(--font-display); color: var(--foreground); }
+  .pin-card .pin-subtitle { position: relative; margin-top: .45rem; color: var(--muted-foreground); letter-spacing: .08em; font-size: .78rem; text-transform: uppercase; }
+  .pin-indicators { position: relative; display: flex; justify-content: center; gap: .65rem; margin: 1.45rem 0 1.2rem; }
+  .pin-dot { width: .72rem; height: .72rem; border-radius: 50%; background: rgba(255,255,255,.75); border: 1px solid rgba(201,164,92,.55); box-shadow: inset 0 1px 4px rgba(201,164,92,.18); transition: transform .2s, background .2s, box-shadow .2s; }
+  .pin-dot.filled { background: linear-gradient(135deg, var(--rose), var(--gold-soft)); transform: scale(1.16); box-shadow: 0 0 12px rgba(242,160,175,.6); }
+  .pin-indicators.shake { animation: pin-shake .45s ease both; }
+  .pin-keypad { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: .65rem; max-width: 17rem; margin: 0 auto; }
+  .pin-key { width: 3.45rem; height: 3.45rem; justify-self: center; border-radius: 50%; color: var(--foreground); font-size: 1.15rem; background: rgba(255,255,255,.56); border: 1px solid rgba(255,255,255,.85); box-shadow: 0 6px 16px rgba(201,164,92,.16); transition: transform .18s var(--ease-out), background .18s, box-shadow .18s; }
+  .pin-key:hover, .pin-key:focus-visible { background: rgba(255,255,255,.88); box-shadow: 0 0 18px rgba(242,160,175,.38); transform: translateY(-2px) scale(1.05); }
+  .pin-key:active { transform: scale(.92); }
+  .pin-key.utility { color: var(--gold); font-size: 1.05rem; background: rgba(255,248,239,.62); }
+  .pin-hint { position: relative; margin-top: 1.25rem; font: 500 1rem var(--font-script); color: var(--muted-foreground); }
+  .pin-error { min-height: 1.35rem; margin-top: .35rem; color: #b86f83; font-size: .82rem; opacity: 0; transition: opacity .2s; }
+  .pin-error.show { opacity: 1; }
+  @keyframes pin-fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes pin-scale-in { from { opacity: 0; transform: scale(.88) translateY(18px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  @keyframes pin-shake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(6px); } }
+  @media (max-width: 380px) { #pin-modal .pin-card { padding-left: .8rem; padding-right: .8rem; } .pin-key { width: 3.1rem; height: 3.1rem; } }
+  @media (prefers-reduced-motion: reduce) { #pin-modal.open, #pin-modal .pin-card, .pin-indicators.shake { animation: none; } }
 
   /* ---------- Modal ---------- */
   #modal {
@@ -382,6 +450,23 @@
           </div>
           <div class="reveal" style="margin-top: 2.25rem;">
             <button id="celebrate-btn" class="btn-gold" style="padding: 0.875rem 2rem;">Celebrate! 🎉</button>
+            <div class="birthday-calendar-wrap reveal" aria-label="Kalender ulang tahun Mei 2027">
+              <span class="calendar-bokeh one" aria-hidden="true"></span><span class="calendar-bokeh two" aria-hidden="true"></span>
+              <div class="birthday-calendar">
+                <p class="calendar-kicker">Hariii ini ✨</p>
+                <h3 class="calendar-month">Mei</h3>
+                <p class="calendar-year">2027</p>
+                <div class="calendar-grid" role="grid" aria-label="Mei 2027">
+                  <span class="calendar-weekday">Min</span><span class="calendar-weekday">Sen</span><span class="calendar-weekday">Sel</span><span class="calendar-weekday">Rab</span><span class="calendar-weekday">Kam</span><span class="calendar-weekday">Jum</span><span class="calendar-weekday">Sab</span>
+                  <span class="calendar-day muted"></span><span class="calendar-day muted"></span><span class="calendar-day muted"></span><span class="calendar-day muted"></span><span class="calendar-day muted"></span><span class="calendar-day muted"></span><span class="calendar-day">1</span>
+                  <span class="calendar-day">2</span><span class="calendar-day">3</span><span class="calendar-day">4</span><span class="calendar-day">5</span><span class="calendar-day">6</span><span class="calendar-day special" aria-label="7 Mei 2027">7</span><span class="calendar-day">8</span>
+                  <span class="calendar-day">9</span><span class="calendar-day">10</span><span class="calendar-day">11</span><span class="calendar-day">12</span><span class="calendar-day">13</span><span class="calendar-day">14</span><span class="calendar-day">15</span>
+                  <span class="calendar-day">16</span><span class="calendar-day">17</span><span class="calendar-day">18</span><span class="calendar-day">19</span><span class="calendar-day">20</span><span class="calendar-day">21</span><span class="calendar-day">22</span>
+                  <span class="calendar-day">23</span><span class="calendar-day">24</span><span class="calendar-day">25</span><span class="calendar-day">26</span><span class="calendar-day">27</span><span class="calendar-day">28</span><span class="calendar-day">29</span>
+                  <span class="calendar-day">30</span><span class="calendar-day">31</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -437,6 +522,27 @@
     </div>
   </footer>
 </main>
+
+<!-- PIN gate shown before Surprise -->
+<div id="pin-modal" role="dialog" aria-modal="true" aria-labelledby="pin-title" aria-describedby="pin-subtitle">
+  <div class="pin-card" id="pin-card">
+    <div class="pin-heart" aria-hidden="true">💗</div>
+    <h2 class="pin-title" id="pin-title">For You, My Love 💗</h2>
+    <p class="pin-subtitle" id="pin-subtitle">Enter Our Secret Code</p>
+    <div class="pin-indicators" id="pin-indicators" aria-label="PIN progress">
+      <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
+      <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
+    </div>
+    <div class="pin-keypad" id="pin-keypad" aria-label="Numeric keypad">
+      <button class="pin-key" data-digit="1">1</button><button class="pin-key" data-digit="2">2</button><button class="pin-key" data-digit="3">3</button>
+      <button class="pin-key" data-digit="4">4</button><button class="pin-key" data-digit="5">5</button><button class="pin-key" data-digit="6">6</button>
+      <button class="pin-key" data-digit="7">7</button><button class="pin-key" data-digit="8">8</button><button class="pin-key" data-digit="9">9</button>
+      <button class="pin-key utility" data-action="clear" aria-label="Clear PIN">C</button><button class="pin-key" data-digit="0">0</button><button class="pin-key utility" data-action="backspace" aria-label="Backspace">⌫</button>
+    </div>
+    <p class="pin-hint">Hint: our special date 💕</p>
+    <p class="pin-error" id="pin-error" role="status" aria-live="polite"></p>
+  </div>
+</div>
 
 <!-- Surprise modal -->
 <div id="modal" role="dialog" aria-modal="true" aria-label="Kejutan spesial">
@@ -700,20 +806,19 @@ function startOpening() {
 }
 
 /* ---------- open surprise flow ---------- */
-document.getElementById("opening-cta").addEventListener("click", function () {
-  if (this.dataset.entering) return;
-  this.dataset.entering = "1";
-  this.style.opacity = 0.6;
-  this.style.transform = "scale(0.95)";
+const opening = document.getElementById("opening");
+function revealMainPage() {
+  const cta = document.getElementById("opening-cta");
+  if (cta.dataset.entering) return;
+  cta.dataset.entering = "1";
+  cta.style.opacity = 0.6;
+  cta.style.transform = "scale(0.95)";
   confettiBurst(130);
-
-  const opening = document.getElementById("opening");
   opening.style.transition = "opacity 0.9s var(--ease-out)";
   opening.style.opacity = 0;
   setTimeout(() => {
     opening.style.display = "none";
     document.getElementById("main-page").style.display = "block";
-    /* background particles for main page */
     const layer = document.getElementById("particles-layer");
     buildParticles(layer, 12);
     buildSparkles(layer, 8);
@@ -722,7 +827,7 @@ document.getElementById("opening-cta").addEventListener("click", function () {
     setupLetter();
     confettiBurst(90);
   }, 900);
-});
+}
 
 /* ---------- age counter ---------- */
 function setupAgeCounter() {
@@ -854,7 +959,63 @@ function setupLetter() {
   obs.observe(trigger);
 }
 
-/* ---------- surprise modal ---------- */
+/* ---------- PIN gate + surprise modal ---------- */
+const pinModal = document.getElementById("pin-modal");
+const pinIndicators = document.getElementById("pin-indicators");
+const pinDots = Array.from(pinIndicators.querySelectorAll(".pin-dot"));
+const pinError = document.getElementById("pin-error");
+const SECRET_PIN = "070510";
+let enteredPin = "";
+let pinSuccessAction = null;
+function renderPin() {
+  pinDots.forEach((dot, index) => dot.classList.toggle("filled", index < enteredPin.length));
+}
+function resetPin() { enteredPin = ""; renderPin(); }
+function openPin(action) {
+  pinSuccessAction = action;
+  resetPin();
+  pinError.textContent = "";
+  pinError.classList.remove("show");
+  pinModal.classList.add("open");
+  setTimeout(() => document.querySelector(".pin-key")?.focus(), 80);
+}
+function closePin() { pinModal.classList.remove("open"); }
+function submitPin() {
+  if (enteredPin.length !== 6) return;
+  if (enteredPin === SECRET_PIN) {
+    pinError.textContent = "Unlocked with love 💗";
+    pinError.classList.add("show");
+    pinIndicators.classList.remove("shake");
+    setTimeout(() => { const action = pinSuccessAction; closePin(); if (action) action(); }, 520);
+  } else {
+    pinError.textContent = "Wrong code, try again 💗";
+    pinError.classList.add("show");
+    pinIndicators.classList.remove("shake");
+    void pinIndicators.offsetWidth;
+    pinIndicators.classList.add("shake");
+    setTimeout(() => { resetPin(); pinError.classList.remove("show"); }, 650);
+  }
+}
+document.getElementById("pin-keypad").addEventListener("click", (event) => {
+  const key = event.target.closest("button");
+  if (!key) return;
+  if (key.dataset.digit !== undefined && enteredPin.length < 6) enteredPin += key.dataset.digit;
+  if (key.dataset.action === "clear") resetPin();
+  if (key.dataset.action === "backspace") enteredPin = enteredPin.slice(0, -1);
+  renderPin();
+  if (enteredPin.length === 6) submitPin();
+});
+pinModal.addEventListener("click", (event) => { if (event.target === pinModal) closePin(); });
+document.addEventListener("keydown", (event) => {
+  if (!pinModal.classList.contains("open")) return;
+  if (/^\d$/.test(event.key) && enteredPin.length < 6) enteredPin += event.key;
+  if (event.key === "Backspace") enteredPin = enteredPin.slice(0, -1);
+  if (event.key === "Escape") closePin();
+  renderPin();
+  if (enteredPin.length === 6) submitPin();
+});
+document.getElementById("opening-cta").addEventListener("click", () => openPin(revealMainPage));
+
 const modal = document.getElementById("modal");
 document.getElementById("modal-title").textContent = CONFIG.surpriseTitle;
 document.getElementById("modal-msg").textContent = CONFIG.surpriseMessage;
